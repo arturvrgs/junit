@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +38,51 @@ public class CalculadoraTest {
         Assertions.assertNull(s3);
         Assertions.assertNotNull(s1);
     }
+
+    @Test
+    public void deveRetornarNumeroInteiroNaDivisao() {
+        Calculadora calculadora = new Calculadora();
+
+        float resultado = calculadora.dividir(6, 2);
+
+        Assertions.assertEquals(3, resultado);
+    }
+
+    @Test
+    public void deveRetornarNumeroNegativoNaDivisao() {
+        Calculadora calculadora = new Calculadora();
+
+        float resultado = calculadora.dividir(6, -2);
+
+        Assertions.assertEquals(-3, resultado);
+    }
+
+    @Test
+    public void deveRetornarNumeroDecimalNaDivisao() {
+        Calculadora calculadora = new Calculadora();
+
+        float resultado = calculadora.dividir(10, 3);
+
+        Assertions.assertEquals(3.3333332538604736, resultado);
+        Assertions.assertEquals(3.33, resultado, 0.01);
+    }
+
+    @Test
+    public void deveRetornarNumeradorZeroNaDivisao() {
+        Calculadora calculadora = new Calculadora();
+
+        float resultado = calculadora.dividir(0, 2);
+
+        Assertions.assertEquals(0, resultado);
+    }
+
+    @Test
+    public void deveLancarExcecaoQuandoDividirPorZero_Junit4() {
+        try {
+            float resultado = 10/10;
+        } catch (ArithmeticException e) {
+            Assertions.assertEquals("/ by zero", e.getMessage());
+        }
+    }
+
 }
